@@ -1,0 +1,155 @@
+/* @namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"); */
+/* variables */
+/* default variables */
+:root {	
+	--bct-blur: 10px;
+  
+  --main-ui-elements: color-mix(in srgb, var(--toolbar-bgcolor) 75%, transparent);
+}
+:root:not([customizing],[chromehidden~="menubar"]){
+  --uc-vertical-tabs-collapse-width: 40px;
+  --uc-vertical-tabs-width: 220px;
+  --uc-navbar-height: 40px;
+}
+:root[uidensity="compact"]:not([customizing],[chromehidden~="menubar"]){
+  --uc-navbar-height: 34px;
+}
+
+/* collapsed */
+#PersonalToolbar,
+#tab-notification-deck,
+.global-notificationbox,
+#browser{
+  margin-left: var(--uc-vertical-tabs-collapse-width);
+  transition: margin-left 0.3s ease;
+}
+
+#tab-notification-deck,
+.global-notificationbox{
+  width: auto !important;
+}
+.tabbrowser-tab{
+  min-width: 0.1px !important; /* This is to prevent Firefox from thinking that tabs would overflow. Still, if such a situation ever occurs it will prevent the ability to scroll tabs with mouse */
+  flex-grow: 0 !important;
+}
+
+.tab-icon-image:not([src]){
+  display: block !important;
+}
+.tab-icon-stack > *{ margin-inline: 0 !important; }
+
+:root[lwtheme]:not([customizing]) #tabbrowser-tabs{
+  background-color: var(--lwt-accent-color);
+}
+
+:root:not([customizing]) #toolbar-menubar[autohide="false"] + #TabsToolbar #tabbrowser-tabs{
+  height: calc(100vh - 28px); /* 28px is however tall your menubar is */
+}
+:root:not([customizing]) #TabsToolbar #new-tab-button,
+#alltabs-button{
+  display: none;
+}
+#tabbrowser-tabs[hasadjacentnewtabbutton] #tabs-newtab-button{
+  display: flex !important;
+  flex-grow: 1;
+  width: var(--uc-vertical-tabs-collapse-width); 
+}
+#tabs-newtab-button > .toolbarbutton-icon{
+  background: none !important;
+}
+#tabs-newtab-button{
+  margin: 2px !important;
+  border-radius: var(--tab-border-radius);
+}
+#TabsToolbar > .titlebar-buttonbox-container{
+  position: absolute;
+  right: 0;
+}
+:root:not([customizing]) #tabbrowser-arrowscrollbox{
+  --uc-scrollbox-box-model: -webkit-box;
+  --uc-scrollbox-height: 100vh;
+  --uc-scrollbutton-display: none;
+  --uc-scrollbox-overflow: auto;
+}
+scrollbox[orient="horizontal"]{
+  display: var(--uc-scrollbox-box-model,flex);
+  -webkit-box-orient: vertical;
+  height: 100%;
+  overflow: var(--uc-scrollbox-overflow,initial);
+} 
+#scrollbutton-up,
+#scrollbutton-down{
+  display: var(--uc-scrollbutton-display,initial);
+}
+#titlebar{
+  will-change: unset !important;
+  transition: none !important;
+  opacity: 1 !important; 
+}
+
+:root:not([customizing]) #navigator-toolbox{ z-index: 1 }
+
+/* collapsed tabbar */
+
+:root:not([customizing]) #tabbrowser-tabs{
+  position: absolute !important;
+  height: ;
+  left: 0;
+  bottom: 0;
+  height: calc(100vh - var(--uc-navbar-height));
+  width: var(--uc-vertical-tabs-collapse-width);
+  background-color: var(--main-ui-elements);
+  transition: width 0.3s ease;
+}
+
+.tab-close-button{ display: none !important }
+.tab-content > :not(.tab-icon-stack){ display: none }
+.tab-content{justify-content: center;}
+
+/* fancy colour change on hover */
+#tabs-newtab-button:hover{ background-color: var(--toolbarbutton-hover-background) !important }
+
+#tabs-newtab-button:hover:active{ background-color: var(--toolbarbutton-active-background) !important }
+
+/* on hover expand */
+:root:not([customizing]) #tabbrowser-tabs:hover{width: var(--uc-vertical-tabs-width)}
+
+:root:not([customizing]) #tabbrowser-tabs:hover .tab-close-button{ display: flex !important }
+
+:root:not([customizing]) #tabbrowser-tabs:hover .tab-content > :not(.tab-icon-stack){ display: flex !important }
+/* on fullscreen dissapear */
+@media screen and (display-mode: fullscreen) {
+  #browser{
+    margin-left: 0px;
+  }
+  :root:not([customizing]) #tabbrowser-tabs{
+    width: 0px;
+    height: calc(100vh - calc(var(--uc-navbar-height) * 0.5));
+  }
+  :root:not([customizing]) #tabbrowser-tabs:hover{
+    width: 0px;
+  }
+}
+
+/* remove some goofy ui elements */
+#PersonalToolbar{ visibility:collapse }
+.titlebar-buttonbox-container{ display:none }
+
+/* window transparencies */
+#main-window {
+	background: transparent !important;
+	-moz-appearance: var(--bct-moz-appearance) !important;
+}
+
+/* blank page */
+#tabbrowser-tabpanels{background: var(--main-ui-elements) !important}
+
+/* navbar / tabbar / titlebar */
+#nav-bar {
+	background: transparent !important;
+	border-color: transparent !important;
+}
+#navigator-toolbox {
+	background: var(--main-ui-elements) !important;
+	border: none !important;
+}

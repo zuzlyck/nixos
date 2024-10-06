@@ -1,0 +1,45 @@
+shell = "bash -c '{}'"
+
+[[items]]
+file = "~/.config/hypr/theme.conf"
+template = "hyprland"
+rewrite = true
+hook = ""
+
+[[items]]
+file = "~/.config/btop/themes/base16.theme"
+template = "btop"
+subtemplate = "default"
+rewrite = true
+hook = "kill -SIGUSR2 $(pgrep btop)"
+
+[[items]]
+file = "~/.themes/colors2"
+template = "gtk"
+subtemplate = "gtk-2"
+rewrite = true
+
+[[items]]
+file = "~/.themes/colors3"
+template = "gtk"
+subtemplate = "gtk-3"
+rewrite = true
+hook = "gtkset dummy && gtkset test"
+
+[[items]]
+file = "~/.cache/$USER/tty"
+template = "tty"
+rewrite = true
+hook = "ttytheme"
+
+[[items]]
+file = "~/.cache/$USER/tty.sh"
+template = "ttysh"
+rewrite = true
+
+[[items]]
+file = "~/.config/gtk-3.0/color"
+template = "adwaita"
+subtemplate = "default"
+rewrite = true
+
