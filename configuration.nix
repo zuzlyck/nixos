@@ -54,10 +54,10 @@
   };
 
   nix = {
-    package = pkgs.nixFlakes;
+    package = pkgs.nixVersions.stable;
 
     extraOptions =
-      lib.optionalString (config.nix.package == pkgs.nixFlakes)
+      lib.optionalString (config.nix.package == pkgs.nixVersions.stable)
       "experimental-features = nix-command flakes";
 
     #clean up boot
