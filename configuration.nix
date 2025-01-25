@@ -1,12 +1,14 @@
-{ config, pkgs, lib, ... }: {
+{config, pkgs, lib, inputs, ... }: { 
   imports = [
     ./hardware-configuration.nix
-    ./modules
+    ./modules/packages.nix
+    ./modules/scripts.nix
   ];
 
   boot = {
     kernelParams = ["quiet" "mem_sleep_default=deep"];
     kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
+    #kernelPackages = lib.mkDefault pkgs.linuxPackages_6_12;
     tmp.cleanOnBoot = true;
     plymouth = {
       enable = true;
@@ -44,6 +46,11 @@
     firewall.enable = false;
   };
 
+  systemd.services = {
+    # Don't wait for network startup
+    NetworkManager-wait-online.enable = lib.mkForce false;
+  };
+
   environment = {
     variables = {
       MOZ_ENABLE_WAYLAND = "1";
@@ -74,6 +81,14 @@
       auto-optimise-store = true;
       allowed-users = ["balint"];
       trusted-users = ["balint"];
+      builders-use-substitutes = true;
+      substituters = [
+        "https://nix-community.cachix.org"
+        "https://cache.nixos.org/"
+      ];
+      trusted-public-keys = [
+        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      ];
     };
   };
 
@@ -158,9 +173,10 @@
       enable = true;
       settings = {
         initial_session = {
-          command = "${pkgs.hyprland}/bin/Hyprland";
+          command = "${pkgs.river}/bin/river";
           user = "balint";
         };
+
         default_session = {
           command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd fish";
           user = "balint";

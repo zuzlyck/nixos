@@ -3,32 +3,24 @@
 
   inputs = {
     # Nixpkgs 
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-23.05";
+    nixpkgs.url = "github:nixos/nixpkgs/release-24.11";
+    #nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
-
-    #nixos-boot.url = "path:./modules/plymouth";
-
+    /*
     # Stands for "Nix User Repository".
-    nur.url = "github:nix-community/NUR"; 
-
+    nur.url = "github:nix-community/NUR";
+ 
     firefox-addons = {
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    */
  
     nixvim = {
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    ags.url = "github:Aylur/ags";
   };
 
   nixConfig = {
@@ -52,15 +44,12 @@
   };
 
 
-  outputs = { nixpkgs, nixos-hardware, home-manager, nur, ... }@inputs: { #nixos-boot
+  outputs = { nixpkgs, nixos-hardware, ... }@inputs: { #nixos-boot
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       specialArgs = {inherit inputs ;};
       modules = [
 	nixos-hardware.nixosModules.framework-12th-gen-intel
-        home-manager.nixosModules.home-manager
-        nur.nixosModules.nur
-        #nixos-boot.nixosModules.default
         ./configuration.nix
       ];
     };

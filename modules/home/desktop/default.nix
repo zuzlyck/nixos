@@ -31,7 +31,7 @@
   dconf.settings = {
     "org/gnome/desktop/wm/preferences".button-layout = "''";
   };
-
+/*
   xdg = {
     enable = true;
     mimeApps.enable = true;
@@ -66,4 +66,6 @@
       "x-scheme-handler/tg" = ["telegramdesktop.desktop;"];
     };
   };
+*/
 }
+

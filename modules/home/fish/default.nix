@@ -29,7 +29,7 @@
 
         tty | grep -q /dev/pts && cat ~/.cache/$USER/tty || ~/.cache/$USER/tty.sh
  
-        [ $(tty) = "/dev/pts/0" ] && [ "$SHLVL" = 1 ] && fetch
+        [ $(tty) = "/dev/pts/0" ] && [ "$SHLVL" = 1 ] && fastfetch
 
         # Workaround for nix-shell --pure
         #if [ "$IN_NIX_SHELL" = "pure" ]; then
@@ -73,7 +73,6 @@
         end
         command rm -f -- "$tmp"
       '';
-
       #fish_prompt = ''
         #set duration (math -s6 "$CMD_DURATION / 1000")
         #eval powerline-go -modules "venv,ssh,cwd,perms,git,hg,jobs,exit,root" -error $status -jobs (count (jobs -p))
