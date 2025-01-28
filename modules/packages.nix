@@ -1,17 +1,4 @@
 {config, pkgs, inputs, ...}: {
-
-  /*
-  nixpkgs.overlays = [
-    (final: _: {
-      # this allows you to access `pkgs.unstable` anywhere in your config
-      unstable = import inputs.nixpkgs-unstable {
-        inherit (final.stdenv.hostPlatform) system;
-        inherit (final) config;
-      };
-    })
-  ];
-  */
-
   # Remove unecessary preinstalled packages
   environment.defaultPackages = [ ];
 
@@ -27,7 +14,6 @@
     #important
     wget
     gcc
-    #neovim
     git
     wl-clipboard
     brightnessctl
@@ -37,7 +23,6 @@
     foot
     btop
     rofi
-    #lxqt.lxqt-policykit
 
     #DE stuff
     river
@@ -52,7 +37,6 @@
     distrobox
     podman
     nix-index
-    #nix-melt
     nix-tree
     deadnix
     comma
@@ -92,14 +76,8 @@
     lutris-free
     #lutris-free
 
-    #code
-    ghc
-
     #test
-    #gimp
-    #krita
-    #pinta
-    #inkscape
+    vulkan-caps-viewer
   ];
 
   fonts = {
@@ -113,8 +91,8 @@
   programs = {
     mtr.enable = true;
     fish.enable = true;
+
     xwayland.enable = false;
-    
     nano.enable = false;
 
     nixvim = {
