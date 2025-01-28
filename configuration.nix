@@ -8,7 +8,6 @@
   boot = {
     kernelParams = ["quiet" "mem_sleep_default=deep"];
     kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
-    #kernelPackages = lib.mkDefault pkgs.linuxPackages_6_12;
     tmp.cleanOnBoot = true;
     plymouth = {
       enable = true;
@@ -17,7 +16,6 @@
       extraConfig = ''
         DeviceScale=2
       '';
-      #theme = "bgrt"; #bgrt, fade-in, glow, script, solar, spinner, spinfinity, tribar, text, details
     };
     initrd = {
       systemd.enable = true;
@@ -46,10 +44,8 @@
     firewall.enable = false;
   };
 
-  systemd.services = {
-    # Don't wait for network startup
-    NetworkManager-wait-online.enable = lib.mkForce false;
-  };
+  # Don't wait for network startup
+  systemd.services.NetworkManager-wait-online.enable = lib.mkForce false;
 
   environment = {
     variables = {
@@ -214,37 +210,29 @@
       HandlePowerKey=suspend
     '';
 
-    fprintd = {
-      enable = true;
-      #package = pkgs.fprintd.overrideAttrs {
-      #  mesonCheckFlags = [
-      #    "--no-suite"
-      #    "fprintd:TestPamFprintd"
-      #  ];
-      #};
-    };
+    fprintd.enable = true;
     devmon.enable = true;
     udisks2.enable = true;
     upower.enable = true;
     thermald.enable = true;
     fwupd.enable = true;
-    #syncthing.enable = true;
     printing.enable = true;
     flatpak.enable = true;
   };
 
   environment.etc."greetd/environments".text = ''
-    Hyprland
+    River
     fish
   '';
 
-  #hardware.opengl.extraPackages = with pkgs; [
-  #  mesa_drivers
-  #  vaapiIntel
-  #  vaapiVdpau
-  #  libvdpau-va-gl
-  #  intel-media-driver
-  #];
+  hardware.graphics.extraPackages = with pkgs; [
+    mesa
+    vaapiIntel
+    vaapiVdpau
+    libvdpau-va-gl
+    intel-media-driver
+    vulkan-tools
+  ];
 
   virtualisation = {
     podman = {
