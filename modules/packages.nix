@@ -71,14 +71,13 @@
       rPackages.phosphoricons
     ];
   };
-/*
   programs = {
     mtr.enable = true;
     fish.enable = true;
 
     xwayland.enable = false;
     nano.enable = false;
-
+/*
     nixvim = {
       enable = true;
       defaultEditor = true;
