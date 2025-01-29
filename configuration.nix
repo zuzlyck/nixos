@@ -3,6 +3,7 @@
     ./hardware-configuration.nix
     ./modules/packages.nix
     ./modules/scripts.nix
+    ./modules/nixvim.nix
   ];
 
   boot = {
@@ -32,7 +33,6 @@
   powerManagement = {
     enable = true;
     powertop.enable = true;
-    #cpuFreqGovernor = lib.mkDefault "ondemand";
   };
 
   networking = {
@@ -94,6 +94,7 @@
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
 
+  /*
   i18n.extraLocaleSettings = {
     LANGUAGE = "en_US.UTF-8";
     LC_ALL = "en_US.UTF-8";
@@ -108,6 +109,7 @@
     LC_TIME = "hu_HU.UTF-8";
     LANG = "en_US.UTF-8";
   };
+    */
 
   console = {
     earlySetup = true;
@@ -178,16 +180,7 @@
         };
       };
     };
-
-    xserver = {
-      enable = true;
-      xkb = {
-        layout = "us,us,us";
-        variant = "altgr-intl,olpc2,symbolic";
-        options = "grp:alt_space_toggle,compose:rctrl-altgr";
-      };
-    };
-
+ 
     tlp = {
       enable = true;
       settings = {
@@ -221,19 +214,10 @@
   };
 
   environment.etc."greetd/environments".text = ''
-    River
+    river
     fish
   '';
-
-  hardware.graphics.extraPackages = with pkgs; [
-    mesa
-    vaapiIntel
-    vaapiVdpau
-    libvdpau-va-gl
-    intel-media-driver
-    vulkan-tools
-  ];
-
+ 
   virtualisation = {
     podman = {
       enable = true;
