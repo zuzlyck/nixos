@@ -201,9 +201,6 @@
       HandlePowerKey=suspend
     '';
 
-    keyd = {
-      enable = true;
-    };
     fprintd.enable = true;
     devmon.enable = true;
     udisks2.enable = true;
