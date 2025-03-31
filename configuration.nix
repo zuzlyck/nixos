@@ -146,7 +146,7 @@
     initialPassword = "pw123";
     isNormalUser = true;
     description = "balint";
-    extraGroups = ["wheel" "networkmanager" "audio" "rfkill" "sys" "disk" "input" "kvm" "optical" "storage" "video" "plugdev" "vboxusers"];
+    extraGroups = ["wheel" "networkmanager" "audio" "rfkill" "sys" "disk" "input" "kvm" "optical" "storage" "video" "plugdev" "vboxusers" "keyd"];
     shell = pkgs.fish;
   };
 
@@ -201,6 +201,9 @@
       HandlePowerKey=suspend
     '';
 
+    keyd = {
+      enable = true;
+    };
     fprintd.enable = true;
     devmon.enable = true;
     udisks2.enable = true;
