@@ -1,4 +1,5 @@
-{config, pkgs, inputs, ...}: {
+{config, pkgs, inputs, nixpkgs, ...}: {
+
   # Remove unecessary preinstalled packages
   environment.defaultPackages = [ ];
 

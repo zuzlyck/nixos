@@ -10,6 +10,8 @@
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nixgl.url = "github:nix-community/nixGL";
   };
 
   nixConfig = {
@@ -29,7 +31,7 @@
   };
 
 
-  outputs = { nixpkgs, nixos-hardware, ... }@inputs: {
+  outputs = { nixpkgs, nixos-hardware, nixgl, ... }@inputs: {
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       specialArgs = {inherit inputs ;};
